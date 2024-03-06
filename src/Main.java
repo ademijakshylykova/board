@@ -12,6 +12,9 @@ public class Main{
     static int[][] monitor1 = new int[7][7];
     static int[][] monitor2 = new int[7][7];
 
+    static int counter1 = 0;
+    static int counter2 = 0;
+
     public static void main(String[] args) {
         System.out.println("Player#1, please enter your name:");
         playerName1 = scanner.nextLine();
@@ -86,11 +89,12 @@ public class Main{
                         if (monitor[j][i] == 0) {
                             System.out.print("- ");
                         } else if (monitor[j][i] == 1) {
-                            System.out.print(". ");
+                            System.out.print("M ");
                         } else if (monitor[j][i] == 2) {
                             System.out.print("X ");
                         } else {
                             System.out.print("S ");
+
                         }
                     }
                     System.out.println();
@@ -126,6 +130,7 @@ public class Main{
                     if (checkSunk(x, y, battlefield, monitor)) {
                         System.out.println("Ship Sunk!");
                         markSunkShip(x, y, battlefield, monitor);
+
                     }
                 } else {
                     System.out.println("Miss! Your opponent's turn!");
@@ -157,6 +162,11 @@ public class Main{
         int deck = 0;
         while (x + deck < battlefield.length && battlefield[x + deck][y] == 1) {
             if (monitor[x + deck][y] != 2) {
+                if(monitor[x + deck][y] != 1){
+                    counter1++;
+                    System.out.println(counter1);
+                }
+
                 return false; // Ship not completely hit
             }
             deck++;
@@ -164,6 +174,10 @@ public class Main{
         deck = 0;
         while (y + deck < battlefield[0].length && battlefield[x][y + deck] == 1) {
             if (monitor[x][y + deck] != 2) {
+                if(monitor[x + deck][y] != 3 && monitor[x + deck][y] != 1){
+                    counter2++;
+                    System.out.println(counter2);
+                }
                 return false; // Ship not completely hit
             }
             deck++;
@@ -171,12 +185,13 @@ public class Main{
         return true; // Ship is completely hit and sunk
     }
     public static boolean isWinCondition() {
-        int counter1 = 0;
+//        int counter1 = 0;
         for (int i = 0; i < monitor1.length; i++) {
             for (int j = 0; j < monitor1[i].length; j++) {
                 if (monitor1[i][j] == 2) {
                     counter1++;
-                    if (counter1 ==11) {
+                    System.out.println(counter1);
+                    if (counter1 >= 11) {
                         System.out.println(playerName1 + " WIN!!!");
                         return true;
                     }
@@ -184,12 +199,13 @@ public class Main{
             }
         }
 
-        int counter2 = 0;
+//        int counter2 = 0;
         for (int i = 0; i < monitor2.length; i++) {
             for (int j = 0; j < monitor2[i].length; j++) {
                 if (monitor2[i][j] == 2) {
                     counter2++;
-                    if (counter2 ==11){
+                    System.out.println(counter2);
+                    if (counter2 >=11){
                         System.out.println(playerName2 + " WIN!!!");
                         return true;
                     }
